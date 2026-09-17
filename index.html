@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mobiliado ou Não — quanto a mobília rende no aluguel?</title>
+<meta name="description" content="Comparador de retorno: alugar mobiliado ou vazio no litoral paulista. Satélite da rede praia.digital">
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:#fffbeb;color:#451a03;min-height:100vh}
+header{padding:24px;text-align:center;background:linear-gradient(120deg,#92400e,#f59e0b);color:#fff}
+nav a{color:#fef3c7;margin:0 8px;text-decoration:none;font-size:14px;font-weight:600}
+.wrap{max-width:700px;margin:auto;padding:24px}
+.panel{background:#fff;border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 6px 18px rgba(146,64,14,.1)}
+label{display:block;margin:10px 0 4px;font-weight:600}
+input{width:100%;padding:12px;border-radius:10px;border:2px solid #fde68a;font-size:16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.col{border-radius:14px;padding:18px;text-align:center}
+.mob{background:#fef3c7}.vaz{background:#e0f2fe}
+.col b{display:block;font-size:22px;margin:5px 0}
+#veredito{text-align:center;font-size:18px;font-weight:700;background:#dcfce7;border-radius:14px;padding:16px}
+footer{padding:20px;text-align:center;font-size:13px}
+footer a{color:#92400e}
+</style></head>
+<body>
+<header><h1>🛋️ Mobiliado ou Não</h1><p>A mobília se paga? Descubra em quantos meses</p>
+<nav><a href="https://praia.digital">Praia Digital</a><a href="https://praia.digital/decor-praia">Decor Praia</a><a href="https://praia.digital/aluguel-anual">Aluguel Anual</a><a href="https://praia.digital/apps">Todos os apps</a></nav></header>
+<div class="wrap"><div class="panel">
+<label>💰 Aluguel do imóvel vazio (R$/mês)</label><input type="number" id="vazio" value="2500" oninput="calc()">
+<label>🛋️ Aluguel mobiliado (R$/mês)</label><input type="number" id="mob" value="3100" oninput="calc()">
+<label>📦 Investimento em mobília (R$)</label><input type="number" id="mobilia" value="18000" oninput="calc()">
+<label>🔧 Depreciação/manutenção da mobília (% ao ano)</label><input type="number" id="dep" value="15" oninput="calc()">
+<div class="cols"><div class="col mob"><h3>🛋️ Mobiliado</h3><div id="mOut"></div></div><div class="col vaz"><h3>📦 Vazio</h3><div id="vOut"></div></div></div>
+</div><div id="veredito"></div></div>
+<footer>Rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praia.digital/calculadora-temporada">Calc. Temporada</a> · <a href="https://praia.digital/fluxo-caixa">Fluxo de Caixa</a> · <a href="https://praia.digital/reforma-litoral">Reforma Litoral</a></footer>
+<script>
+function fmt(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR')}
+function calc(){
+const v=+vazio.value,m=+mob.value,mob_=+mobilia.value,dep=+dep.value/100;
+const dif=m-v,custoAno=mob_*dep,extraAno=dif*12-custoAno;
+const pay=dif>0?mob_/dif:Infinity;
+mOut.innerHTML=`Extra/ano líquido: <b>${fmt(extraAno)}</b>Payback da mobília: <b>${pay<999?pay.toFixed(1)+' meses':'nunca'}</b>`;
+vOut.innerHTML=`Renda/ano: <b>${fmt(v*12)}</b>Zero manutenção de móveis`;
+veredito.innerHTML=extraAno>0&&pay<36?`✅ Mobiliar compensa: payback em ${pay.toFixed(0)} meses e +${fmt(extraAno)}/ano. Monte o enxoval no <a href="https://praia.digital/decor-praia">Decor Praia</a>.`:`⚠️ Neste cenário, alugar vazio é melhor — ou revise o valor da mobília.`;}
+calc();
+</script></body></html>
